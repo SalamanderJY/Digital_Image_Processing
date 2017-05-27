@@ -1,11 +1,11 @@
 # -*- coding: UTF-8 -*-
 
 import cv2
-import math
+import cv2.cv as cv
 import numpy as np
 
 # opencv image show in python
-img1 = cv2.imread("test3.jpg")
+img1 = cv2.imread("test2.jpg")
 print img1.shape
 # BGR image
 for i in range(0, 511):
@@ -29,12 +29,13 @@ for i in range(0, 511):
                 img1[i, j] = [255, 255, 255]
             else:
                 img1[i, j] = [0, 0, 0]
-
+cv2.imwrite('test.jpg', img1);
 
 cv2.namedWindow("Image")
 cv2.imshow("Image", img1)
 
-cv2.waitKey (0)
+cv2.waitKey(0)
 cv2.destroyAllWindows()
+
 
 
