@@ -4,38 +4,40 @@ import cv2
 import cv2.cv as cv
 import numpy as np
 
+# 图像预处理，获得图像中红色的元素
+img = cv2.imread("test3.jpg")
+
+row = img.shape[0]
+# print row
+col = img.shape[1]
+# print col
+channel = img.shape[2]
+# print channel
+
+emptyImage = np.zeros((row, col, 1), np.uint8)
+# print emptyImage.shape
+count = 0
+for i in range(1, row):
+    for j in range(1, col): # print emptyImage[i, j]
+        count += 1
+        # For BGR image, it returns an array of Blue, Green, Red values.
+        colorR = img.item(i, j, 2)
+        # print ("count : %d %d" % (count, colorR))
+        colorG = img.item(i, j, 1)
+        colorB = img.item(i, j, 0)
+        diff1 = colorR - colorB if colorR > colorB else 0
+        diff2 = colorR - colorG if colorR > colorG else 0
+        emptyImage[i, j] = diff1 if diff1 < diff2 else diff2
+
+cv2.imwrite("test.jpg", emptyImage)
+
+
+
+
+
 # opencv image show in python
-img1 = cv2.imread("test2.jpg")
-print img1.shape
 # BGR image
-for i in range(0, 511):
-    for j in range(0, 511):
-        #if img1[i,j][0] < 150 and img1[i,j][1] < 150 and img1[i,j][2] > 170:
-        #    img1[i,j] = [255,255,255]
-        #else:
-        #    img1[i,j] = [0,0,0]
 
-        # better pixel accessing and editing method
-        diff1 = img1.item(i, j, 2) - img1.item(i, j, 0)
-        diff2 = img1.item(i, j, 2) - img1.item(i, j, 0)
-
-        if diff1 - diff2 >= 0:
-            if diff2 > 30:
-                img1[i, j] = [255, 255, 255]
-            else:
-                img1[i, j] = [0, 0, 0]
-        else:
-            if diff1 > 30:
-                img1[i, j] = [255, 255, 255]
-            else:
-                img1[i, j] = [0, 0, 0]
-cv2.imwrite('test.jpg', img1);
-
-cv2.namedWindow("Image")
-cv2.imshow("Image", img1)
-
-cv2.waitKey(0)
-cv2.destroyAllWindows()
 
 
 
