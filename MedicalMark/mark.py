@@ -5,7 +5,7 @@ import cv2.cv as cv
 import numpy as np
 
 # 图像预处理，获得图像中红色的元素
-img = cv2.imread("test3.jpg")
+img = cv2.imread("test1.jpg")
 
 # pre-processing image
 row = img.shape[0]
@@ -73,12 +73,12 @@ if circles is None:
 print circles
 
 circles = np.uint16(np.around(circles))
-for i in circles[0,:]:
+for i in circles[0, :]:
     # draw the outer circle
-    cv2.circle(img,(i[0],i[1]),i[2],(0,255,0),2)
+    cv2.circle(img, (i[0], i[1]), i[2], (0, 255, 0), 1)
     # draw the center of the circle
-    cv2.circle(img,(i[0],i[1]),2,(0,0,255),3)
+    # cv2.circle(img, (i[0], i[1]), 2, (0, 0, 255), 1)
 
-cv2.imshow('detected circles',img)
+cv2.imshow('detected circles', img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
