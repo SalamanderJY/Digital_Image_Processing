@@ -58,9 +58,27 @@ for j in range(1, col):
 
 cv2.imwrite("test.jpg", emptyImage)
 
+blur = cv2.GaussianBlur(emptyImage, (9, 9), 2)
 
+cv2.imwrite("test.jpg", blur)
 
+circles = cv2.HoughCircles(blur, cv.CV_HOUGH_GRADIENT, 1, 0.1, param1=100, param2=50)
 
+if circles is None:
+    for i in range(1, 20):
+        circles = cv2.HoughCircles(blur, cv.CV_HOUGH_GRADIENT, 1, row / 20, param1=100 - 5 * i, param2=50 - 5 * i)
+        if circles is not None:
+            break
 
+print circles
 
+circles = np.uint16(np.around(circles))
+for i in circles[0,:]:
+    # draw the outer circle
+    cv2.circle(img,(i[0],i[1]),i[2],(0,255,0),2)
+    # draw the center of the circle
+    cv2.circle(img,(i[0],i[1]),2,(0,0,255),3)
 
+cv2.imshow('detected circles',img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
