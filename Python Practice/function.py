@@ -1,7 +1,7 @@
-from abstest import my_abs
-from abstest import move
-
 import math
+
+from abstest import move
+from abstest import my_abs
 
 my_abs(1)
 
