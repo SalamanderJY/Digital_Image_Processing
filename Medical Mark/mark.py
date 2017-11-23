@@ -1,11 +1,11 @@
 # -*- coding: UTF-8 -*-
-
+# python 2
 import cv2
-import cv2.cv as cv
+import cv2 as cv
 import numpy as np
 
 # 图像预处理，获得图像中红色的元素
-img = cv2.imread("test1.jpg")
+img = cv2.imread("test2.jpg")
 
 # pre-processing image
 row = img.shape[0]
@@ -62,15 +62,15 @@ blur = cv2.GaussianBlur(emptyImage, (9, 9), 2)
 
 cv2.imwrite("test.jpg", blur)
 
-circles = cv2.HoughCircles(blur, cv.CV_HOUGH_GRADIENT, 1, 0.1, param1=100, param2=50)
+circles = cv2.HoughCircles(blur, cv.HOUGH_GRADIENT, 1, 0.1, param1=100, param2=50)
 
 if circles is None:
     for i in range(1, 20):
-        circles = cv2.HoughCircles(blur, cv.CV_HOUGH_GRADIENT, 1, row / 20, param1=100 - 5 * i, param2=50 - 5 * i)
+        circles = cv2.HoughCircles(blur, cv.HOUGH_GRADIENT, 1, row / 20, param1=100 - 5 * i, param2=50 - 5 * i)
         if circles is not None:
             break
 
-print circles
+print(circles)
 
 circles = np.uint16(np.around(circles))
 for i in circles[0, :]:
