@@ -25,7 +25,7 @@ class BmpFileHeader:
         self.bfSize = int_to_bytes(0, 4)        # File Size
         self.bfReserved1 = int_to_bytes(0, 2)
         self.bfReserved2 = int_to_bytes(0, 2)
-        self.bfOffBits = int_to_bytes(0, 4)  # Header Info Offsets
+        self.bfOffBits = int_to_bytes(0, 4)     # Header Info Offsets
 
 '''
 BmpStructureHeader
@@ -59,7 +59,7 @@ class BmpStructureHeader:
         self.biClrImportant = int_to_bytes(0, 4)
 
 
-class Bmp(BmpFileHeader, BmpStructureHeader):
+class BMP(BmpFileHeader, BmpStructureHeader):
     def __init__(self):
         BmpFileHeader.__init__(self)
         BmpStructureHeader.__init__(self)
@@ -115,6 +115,7 @@ class Bmp(BmpFileHeader, BmpStructureHeader):
 
         # Load pixel info
         count = 0
+
         # 32 bit, 4 bytes aligned
         while count < (self.width * self.bit_count * 8 + 31) // 32 * 4 * self.height:
             self.bits.append(file.read(1))
@@ -122,7 +123,7 @@ class Bmp(BmpFileHeader, BmpStructureHeader):
         file.close()
 
     # From left bottom corner to right top corner change to normal position
-    def bmp_to_array(self):
+    def bmp2array(self):
         data = np.arange(
             self.width * self.height * int.from_bytes(self.biBitCount, 'little') // 8).reshape(414, 414, self.bit_count)
         aligned = (self.width * self.bit_count * 8 + 31) // 32 * 4
@@ -131,19 +132,20 @@ class Bmp(BmpFileHeader, BmpStructureHeader):
                 for k in range(0, self.bit_count):
                     data[self.width - i - 1, j, k] = int.from_bytes(self.bits[i*aligned + j*self.bit_count + k],
                                                                     'little')
+        # print(data.shape[0])
         return data
 
 
 if __name__ == "__main__":
     # 24
-    bmp1 = Bmp()
+    bmp1 = BMP()
     bmp1.resolve('head24.bmp')
-    result1 = bmp1.bmp_to_array()
+    result1 = bmp1.bmp2array()
     print(result1[0, 0])
     # 8
-    bmp2 = Bmp()
+    bmp2 = BMP()
     bmp2.resolve('head8.bmp')
-    result2 = bmp2.bmp_to_array()
+    result2 = bmp2.bmp2array()
     print(result2[7, 7])
 
 

@@ -1,6 +1,17 @@
-from bmp import Bmp
+from bmp import BMP
+from dft import DFT
+from dct import DCT
 
-bmp = Bmp()
+bmp = BMP()
 bmp.resolve('head24.bmp')
-result = bmp.bmp_to_array()
-print(result[0, 0])
+result = bmp.bmp2array()
+
+# dft = DFT()
+# dft.dft(result)
+
+dct = DCT()
+dct.dct(result)
+
+
+
+
