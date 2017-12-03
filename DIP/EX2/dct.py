@@ -142,9 +142,12 @@ class DCT:
             freq = np.zeros(((image.shape[0] + 7) // 8 * 8, (image.shape[1] + 7) // 8 * 8), np.float)
             idctimage = np.zeros(((image.shape[0] + 7) // 8 * 8, (image.shape[1] + 7) // 8 * 8, 1), np.uint8)
 
+            time_start = time.time()  # time.time() 1970.1.1 start
             for u in range(0, image.shape[0], 8):
                 for v in range(0, image.shape[1], 8):
                     self.dct8(u, v, gray[:, :, 0], freq)
+            time_end = time.time()  # time.time() 1970.1.1 end
+            print(time_end - time_start)
             self.freq2gray(image.shape[0], image.shape[1], freq)
 
             for u in range(0, image.shape[0], 8):
