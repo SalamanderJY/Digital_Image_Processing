@@ -37,30 +37,27 @@ class GaussianNoise:
             return result
         return int(pixel + delta)
 
-    def MeanFilter(self, source_image, m, n):
-        image = np.copy(source_image)
-        # kernel 3 * 3
-        for i in range(1, image.shape[0] - 1):
-            for j in range(1, image.shape[1] - 1):
-                sumb = 0
-                for ii in range(i - 1, i + 2):
-                    for jj in range(j - 1, j + 2):
-                        sumb += source_image[ii, jj, 0]
-                image[i, j, 0] = int(sumb / m / n)
-
-                sumg = 0
-                for ii in range(i - 1, i + 2):
-                    for jj in range(j - 1, j + 2):
-                        sumg += source_image[ii, jj, 1]
-                image[i, j, 1] = int(sumg / m / n)
-
-                sumr = 0
-                for ii in range(i - 1, i + 2):
-                    for jj in range(j - 1, j + 2):
-                        sumr += source_image[ii, jj, 2]
-                image[i, j, 2] = int(sumr / m / n)
-
-        cv.imwrite('MeanFilter.bmp', image)
-
-
-
+    # def MeanFilter(self, source_image, m, n):
+    #     image = np.copy(source_image)
+    #     # kernel 3 * 3
+    #     for i in range(1, image.shape[0] - 1):
+    #         for j in range(1, image.shape[1] - 1):
+    #             sumb = 0
+    #             for ii in range(i - 1, i + 2):
+    #                 for jj in range(j - 1, j + 2):
+    #                     sumb += source_image[ii, jj, 0]
+    #             image[i, j, 0] = int(sumb / m / n)
+    #
+    #             sumg = 0
+    #             for ii in range(i - 1, i + 2):
+    #                 for jj in range(j - 1, j + 2):
+    #                     sumg += source_image[ii, jj, 1]
+    #             image[i, j, 1] = int(sumg / m / n)
+    #
+    #             sumr = 0
+    #             for ii in range(i - 1, i + 2):
+    #                 for jj in range(j - 1, j + 2):
+    #                     sumr += source_image[ii, jj, 2]
+    #             image[i, j, 2] = int(sumr / m / n)
+    #
+    #     cv.imwrite('MeanFilter.bmp', image)

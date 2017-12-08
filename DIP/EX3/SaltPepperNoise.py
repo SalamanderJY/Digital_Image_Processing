@@ -22,8 +22,3 @@ class SaltPepperNoise:
 
         cv.imwrite('SaltPepperNoise.bmp', gray)
 
-
-
-
-
-
