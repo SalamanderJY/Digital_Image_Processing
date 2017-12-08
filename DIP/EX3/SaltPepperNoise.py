@@ -1,30 +1,24 @@
 import random
-import cv2 as cv
 import numpy as np
+import cv2 as cv
 
 
 class SaltPepperNoise:
 
     def addSaltPepperNoise(self, image, snr):
 
-        pixelcount = image.shape[0] * image.shape[1]
-        randomcount = int(pixelcount * (1 - snr))
+        pixels = image.shape[0] * image.shape[1]
+        noisies = int(pixels * (1 - snr))
 
-        gray = np.zeros((image.shape[0], image.shape[1]), np.uint8)
+        gray = np.copy(image)
 
-        for i in range(0, image.shape[0]):
-            for j in range(0, image.shape[1]):
-                gray[i, j] = 0.299 * image[i, j, 2] + 0.587 * image[i, j, 1] + 0.114 * image[i, j, 0]
-
-        cv.imwrite('gray.bmp', gray)
-
-        for i in range(1, randomcount):
-            randx = random.randint(0, gray.shape[0] - 1)
-            randy = random.randint(0, gray.shape[1] - 1)
+        for i in range(1, noisies):
+            rand_x = random.randint(0, gray.shape[0] - 1)
+            rand_y = random.randint(0, gray.shape[1] - 1)
             if random.randint(0, 1) == 0:
-                gray[randx, randy] = 0
+                gray[rand_x, rand_y] = 0
             else:
-                gray[randx, randy] = 255
+                gray[rand_x, rand_y] = 255
 
         cv.imwrite('SaltPepperNoise.bmp', gray)
 

@@ -125,15 +125,39 @@ class BMP(BmpFileHeader, BmpStructureHeader):
     # From left bottom corner to right top corner change to normal position
     def bmp2array(self):
         data = np.arange(
-            self.width * self.height * int.from_bytes(self.biBitCount, 'little') // 8).reshape(414, 414, self.bit_count)
+            self.width * self.height * int.from_bytes(self.biBitCount, 'little') // 8).reshape(
+            self.width, self.height, self.bit_count)
+
         aligned = (self.width * self.bit_count * 8 + 31) // 32 * 4
+
         for i in range(0, self.width):
             for j in range(0, self.height):
                 for k in range(0, self.bit_count):
-                    data[self.width - i - 1, j, k] = int.from_bytes(self.bits[i*aligned + j*self.bit_count + k],
+                    data[self.width - i - 1, j, k] = int.from_bytes(self.bits[i * aligned + j * self.bit_count + k],
                                                                     'little')
         # print(data.shape[0])
         return data
+
+    # read rgb bmp change to gray image, return gary array.
+    def bmp2gray(self):
+        gray = np.arange(self.width * self.height).reshape(self.width, self.height, 1)
+        aligned = (self.width * self.bit_count * 8 + 31) // 32 * 4
+        for i in range(0, self.width):
+            for j in range(0, self.height):
+                gray[self.width - i - 1, j] = 0
+                temp = 0
+                for k in range(0, self.bit_count):
+                    if k == 0:
+                        temp += 0.114 * int.from_bytes(
+                            self.bits[i * aligned + j * self.bit_count + k], 'little')
+                    if k == 1:
+                        temp += 0.587 * int.from_bytes(
+                            self.bits[i * aligned + j * self.bit_count + k], 'little')
+                    if k == 2:
+                        temp += 0.299 * int.from_bytes(
+                            self.bits[i * aligned + j * self.bit_count + k], 'little')
+                gray[self.width - i - 1, j] = int(temp)
+        return gray
 
     @staticmethod
     def histogram(data):

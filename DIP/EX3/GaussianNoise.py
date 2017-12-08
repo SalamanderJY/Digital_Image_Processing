@@ -6,19 +6,27 @@ import numpy as np
 class GaussianNoise:
 
     def addGaussianNoise(self, source_image, means, sigma):
-        # Gaussian means and sigma
-        image = np.copy(source_image)
-        for i in range(0, image.shape[0]):
-            for j in range(0, image.shape[1]):
-                delta_b = random.gauss(means, sigma)
-                image[i, j, 0] = self.normalize(image[i, j, 0], delta_b)
-                delta_g = random.gauss(means, sigma)
-                image[i, j, 1] = self.normalize(image[i, j, 1], delta_g)
-                delta_r = random.gauss(means, sigma)
-                image[i, j, 2] = self.normalize(image[i, j, 2], delta_r)
-        cv.imwrite('GaussianNoise.bmp', image)
+        # Gaussian means and sigma in 3 channels image.
+        if source_image.shape[2] == 3:
+            image = np.copy(source_image)
+            for i in range(0, image.shape[0]):
+                for j in range(0, image.shape[1]):
+                    delta_b = random.gauss(means, sigma)
+                    image[i, j, 0] = self.normalize(image[i, j, 0], delta_b)
+                    delta_g = random.gauss(means, sigma)
+                    image[i, j, 1] = self.normalize(image[i, j, 1], delta_g)
+                    delta_r = random.gauss(means, sigma)
+                    image[i, j, 2] = self.normalize(image[i, j, 2], delta_r)
+            cv.imwrite('GaussianNoise.bmp', image)
 
-        self.MeanFilter(image, 3, 3)
+        if source_image.shape[2] == 1:
+            image = np.copy(source_image)
+            for i in range(0, image.shape[0]):
+                for j in range(0, image.shape[1]):
+                    delta = random.gauss(means, sigma)
+                    image[i, j] = self.normalize(image[i, j], delta)
+            cv.imwrite('GaussianNoise.bmp', image)
+        # self.MeanFilter(image, 3, 3)
 
     def normalize(self, pixel, delta):
         if pixel + delta > 255:
