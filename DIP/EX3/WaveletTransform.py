@@ -34,7 +34,7 @@ class WaveletTransform:
         if series == 2:
             self.dwt2(image[0:int(row // 2), 0:int(col // 2)], 1)
 
-        cv.imwrite('dwt.bmp', image)
+        cv.imwrite('dwt2.bmp', image)
 
     def idwt2(self, LL, HL, LH, HH):
         lpr = [1, 1]
@@ -125,14 +125,14 @@ if __name__ == "__main__":
     img = cv.imread('SaltPepperNoise.bmp', 0)
     row = img.shape[1]
     col = img.shape[0]
-    wavelet.dwt2(img, 1)
+    wavelet.dwt2(img[0:412, 0:412], 2)
 
-    LL = img[0:int(row // 2), 0:int(col // 2)]
-    LH = img[int(row // 2):row, 0:int(col // 2)]
-    HL = img[0:int(row // 2), int(col // 2):col]
-    HH = img[int(row // 2):row, int(col // 2):col]
-
-    wavelet.idwt2(LL, HL, LH, HH)
+    # LL = img[0:int(row // 2), 0:int(col // 2)]
+    # LH = img[int(row // 2):row, 0:int(col // 2)]
+    # HL = img[0:int(row // 2), int(col // 2):col]
+    # HH = img[int(row // 2):row, int(col // 2):col]
+    #
+    # wavelet.idwt2(LL, HL, LH, HH)
 
 
 

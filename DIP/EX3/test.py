@@ -3,7 +3,9 @@ from GaussianNoise import GaussianNoise
 from SaltPepperNoise import SaltPepperNoise
 from MeanFilter import MeanFilter
 from MedianFilter import MedianFilter
+
 import cv2 as cv
+import evaluation as ev
 
 bmp = BMP()
 bmp.resolve('head24.bmp')
@@ -22,3 +24,11 @@ meanfilter.filter('GaussianNoise.bmp')
 
 medianfilter = MedianFilter()
 medianfilter.filter('SaltPepperNoise.bmp')
+
+
+source = cv.imread('gray.bmp', 0)
+meanfilter_result = cv.imread('MeanFilter.bmp', 0)
+psnr = ev.psnr(source, meanfilter_result)
+ssim = ev.ssim(source, meanfilter_result)
+print(psnr)
+print(ssim)
