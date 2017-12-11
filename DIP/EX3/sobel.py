@@ -16,6 +16,7 @@ class Sobel:
         cv.imwrite('ySobel.bmp', Gy)
 
         Gxy = np.sqrt(np.square(Gx) + np.square(Gy))
+
         cv.imwrite('xySobel.bmp', Gxy)
 
 if __name__ == "__main__":
