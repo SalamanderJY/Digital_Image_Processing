@@ -22,5 +22,5 @@ class Sobel:
 if __name__ == "__main__":
 
     sobel = Sobel()
-    image = cv.imread('gray.bmp', 0)
+    image = cv.imread('lena.bmp', 0)
     sobel.sobel_detection(image)
