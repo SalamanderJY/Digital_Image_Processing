@@ -1,9 +1,14 @@
 # Digital Images Processing Including
 
-* Medical Images Processing Test mainly including finding the circle from the marked CT images.
+* Digital Images Processing Experiments 1 2 3 4
 
-* Digital Images Processing Experiments 1 2 3
+* Experiment 1 : Read binary data from bmp images.
 
-* Video Processing of Segmentation of forward target and background.
+* Experiment 2 : Implementation of DCT, IDCT and DFT, IDFT.
+
+* Experiment 3 : Implementation of GaussianFilter, MeanFilter, MedianFilter, Sobel Operator and DWT, IDWT with Haar Wave.
+
+* Experiment 4 : Video Processing of Segmentation of forward target and background.
+
 
 
